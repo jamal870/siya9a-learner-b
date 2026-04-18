@@ -1,9 +1,8 @@
-const CACHE_NAME = 'siya9a-learner-b-v2';
+const CACHE_NAME = 'siya9a-learner-b-v3';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
-  'master_catalog_1000.json',
-  'https://fonts.googleapis.com/css2?family=Caironwght@400;600;700;900&family=DMSans:wght@400;500;600;700&display=swap'
+  'https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=DM+Sans:wght@400;500;600;700&display=swap'
 ];
 
 self.addEventListener('install', (event) => {
@@ -33,30 +32,7 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
   if (event.request.method !== 'GET') return;
 
-  if (url.hostname === 'conduire.ma' || url.hostname === 'morortest.com') {
-    event.respondWith(
-      fetch(event.request).then((b) => {
-        if (c.ok) { const c = r.clone(); caches.open(CACHE_NAME).then(cache => cache.put(event.request, c)); }
-        return r;
-      }).catch(() => caches.match(event.request).then(c => c || new Response('Offline', { status: 503 })))
-    );
-    return;
-  }
-
-  if (url.pathname.includes('master_catalog')) {
-    event.respondWith(
-      caches.match(event.request).then((cached) => {
-        const fp = fetch(event.request).then((r) => {
-          if (r.ok) { const c = r.clone(); caches.open(CACHE_NAME).then(cache => cache.put(event.request, c)); }
-          return r;
-        }).catch(() => cached);
-        return cached || fp;
-      })
-    );
-    return;
-  }
-
-  if (url.hostname.includes('googleapis.com') || url.hostname.includes('gstatic.com')) {
+  if (url.hostname.includes('googleapis.com') || url.hostname.includes('gstatic.com') || url.hostname.includes('emergentagent.com')) {
     event.respondWith(
       caches.match(event.request).then(c => {
         if (c) return c;

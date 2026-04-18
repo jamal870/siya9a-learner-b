@@ -1,0 +1,50 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Download full catalog from CDN
+        run: |
+          curl -L "https://customer-assets.emergentagent.com/wingman/4d44713c-9dca-4916-aa13-fa626c7c4ce4/attachments/6f6bceed36f948b6afecd503e875a7ad_master_catalog_1000.json" \
+            -o master_catalog_1000.json
+          echo "Catalog size: $(wc -c < master_catalog_1000.json) bytes"
+          python3 -c "import json; d=json.load(open('master_catalog_1000.json')); print(f'Questions: {len(d[\"questions\"])}')"
+      
+      - name: Download latest app HTML from CDN
+        run: |
+          curl -L "https://customer-assets.emergentagent.com/wingman/4d44713c-9dca-4916-aa13-fa626c7c4ce4/attachments/5e4ede2b2bf045a68d3051a4c91cfb19_index.html" \
+            -o index.html
+          echo "HTML size: $(wc -c < index.html) bytes"
+      
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+      
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
