@@ -1,0 +1,27 @@
+{
+  "name": "Siya9a Code B · Permis Maroc",
+  "short_name": "Siya9a Code B",
+  "description": "Moroccan driving license theory preparation - Category B",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#f5f5f7",
+  "theme_color": "#C1272D",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://static.prod-images.emergentagent.com/jobs/4d44713c-9dca-4916-aa13-fa626c7c4ce4/images/4051a079396c421d3ff189046456a88ac202454396448db01e8843917ae0381.jpeg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "https://static.prod-images.emergentagent.com/jobs/4d44713c-9dca-4916-aa13-fa626c7c4ce4/images/91d69c1425fd8ce45f978f820fe4ff8293aedbca0a8a5db7ec98970e3a504d4e.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ],
+  "categories": [
+    "education"
+  ],
+  "lang": "fr",
+  "dir": "ltr"
+}
